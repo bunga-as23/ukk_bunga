@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Feb 2023 pada 09.07
+-- Waktu pembuatan: 07 Mar 2023 pada 01.12
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 8.0.3
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ukk_chika`
+-- Database: `ukk`
 --
 
 -- --------------------------------------------------------
@@ -41,9 +41,9 @@ CREATE TABLE `tb_detail_transaksi` (
 --
 
 INSERT INTO `tb_detail_transaksi` (`id_detail_transaksi`, `id_transaksi`, `id_paket`, `qty`, `keterangan`, `total_harga`) VALUES
-(10, 11, 1, 1, '', 10000),
-(11, 12, 2, 1, '', 5000),
-(12, 13, 3, 1, '', 10000);
+(33, 33, 1, 5, '', 50000),
+(35, 35, 1, 5, '', 50000),
+(36, 36, 3, 10, '', 200000);
 
 -- --------------------------------------------------------
 
@@ -64,8 +64,10 @@ CREATE TABLE `tb_member` (
 --
 
 INSERT INTO `tb_member` (`id_member`, `nama`, `alamat`, `jenis_kelamin`, `tlp`) VALUES
-(1, 'chika damayanti', 'umbulrejo', 'P', '082257390370'),
-(2, 'admin', 'jember', 'L', '085781456');
+(1, 'Bunga Adinda Sari', 'Sidomulyo', 'P', '082257390370'),
+(2, 'Sandra W', 'Jl. Pelita Semboro', 'P', '082596354785'),
+(3, 'Kukuh S', 'semboro', 'L', '08256488555'),
+(4, 'chika damaynti', 'umbylrejo', 'P', '082564789145');
 
 -- --------------------------------------------------------
 
@@ -85,8 +87,8 @@ CREATE TABLE `tb_outlet` (
 --
 
 INSERT INTO `tb_outlet` (`id_outlet`, `nama`, `alamat`, `tlp`) VALUES
-(1, 'Owner', 'jember', '087787231301'),
-(2, 'chika damayanti', 'umbulrejo', '085789456');
+(1, 'Bunga Laundry', 'Semboro', '082257390370'),
+(2, 'Bunga Laundry I', 'Tanggul', '081358358513');
 
 -- --------------------------------------------------------
 
@@ -108,8 +110,9 @@ CREATE TABLE `tb_paket` (
 
 INSERT INTO `tb_paket` (`id_paket`, `id_outlet`, `jenis`, `nama_paket`, `harga`) VALUES
 (1, 1, 'Kiloan', 'Selimut', 10000),
-(2, 2, 'Kiloan', 'cuci basah', 5000),
-(3, 2, 'Bad Cover', 'cuci kering', 10000);
+(2, 1, 'Selimut', 'Paket Selimut Keluarga', 5000),
+(3, 2, 'Kiloan', 'Cuci Seterika', 20000),
+(4, 2, 'Kiloan', 'Cuci Kering', 10000);
 
 -- --------------------------------------------------------
 
@@ -140,9 +143,9 @@ CREATE TABLE `tb_transaksi` (
 --
 
 INSERT INTO `tb_transaksi` (`id_transaksi`, `id_outlet`, `kode_invoice`, `id_member`, `tgl`, `batas_waktu`, `tgl_bayar`, `biaya_tambahan`, `diskon`, `pajak`, `status`, `dibayar`, `id_user`, `total_bayar`, `cash`) VALUES
-(11, 1, 'TR - 140223000', 1, '2023-02-14 10:44:00', '0000-00-00 00:00:00', '2023-02-14 10:45:00', 0, 20, 0, 'Selesai', 'Dibayar', 1, 8000, 10000),
-(12, 1, 'TR - 140223000', 1, '2023-02-14 13:30:00', '0000-00-00 00:00:00', '2023-02-14 13:30:00', 0, 0, 0, 'Selesai', 'Dibayar', 1, 5000, 10000),
-(13, 1, 'TR - 140223000', 1, '2023-02-14 14:52:00', '0000-00-00 00:00:00', '2023-02-14 14:52:00', 0, 0, 0, 'Baru', 'Dibayar', 1, 10000, 20000);
+(33, 1, 'TR20230303001', 1, '2023-03-03 17:09:00', '2023-03-03 17:09:00', '2023-03-06 17:40:00', 2000, 10, 20, 'Diambil', 'Dibayar', 1, 46818, 0),
+(35, 1, 'TR20230305002', 1, '2023-03-03 17:50:00', '2023-03-03 17:50:00', '2023-03-03 17:50:00', 0, 0, 0, 'Diambil', 'Dibayar', 1, 50000, 50000),
+(36, 1, 'TR20230305003', 2, '2023-03-05 17:51:00', '2023-03-05 17:52:00', '2023-03-05 17:52:00', 0, 0, 0, 'Diambil', 'Dibayar', 1, 200000, 200000);
 
 -- --------------------------------------------------------
 
@@ -152,7 +155,7 @@ INSERT INTO `tb_transaksi` (`id_transaksi`, `id_outlet`, `kode_invoice`, `id_mem
 
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
+  `nama_user` varchar(100) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` text NOT NULL,
   `id_outlet` int(11) NOT NULL,
@@ -163,10 +166,12 @@ CREATE TABLE `tb_user` (
 -- Dumping data untuk tabel `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `nama`, `username`, `password`, `id_outlet`, `role`) VALUES
-(1, 'Administrator', 'admin', '$2y$10$bXAPz6u0N8KWEq93SlKMouKkQMwAbTtLbzaKZi634aCR0nAygtLaW', 1, 'admin'),
+INSERT INTO `tb_user` (`id_user`, `nama_user`, `username`, `password`, `id_outlet`, `role`) VALUES
+(1, 'Bunga Adinda Sari', 'admin', '$2y$10$Q.Z1odurG9BYh4omjz9vruGCpyEVCgYLLI3cX2GVsyrQUwSnDOdT2', 1, 'admin'),
 (2, 'kasir', 'kasir', '$2y$10$fkPW../em2YozAncgIQWUejRzEnE9BgKVELm33GjsAV1DcwqOp7a.', 1, 'kasir'),
-(3, 'owner', 'owner', '$2y$10$KAXmk.T5HKnbXfDY.SG.Yu8Pfsjg7EUElz3EZzCMzqMVvUzZ5jjXa', 1, 'owner');
+(3, 'Owner', 'owner', '$2y$10$lHg6ufRV6zKGFtVDiaIMJuPOQpovD4jwpm9tKf0fgmwk2XlB9qlyi', 1, 'owner'),
+(4, 'Admin 2', 'admin2', '$2y$10$GhVqeUEhB0Psyyo3vfYeIO9l6qCy.qF4So2qnEHiK9qMi2HZYb6k2', 2, 'admin'),
+(5, 'kasir 2', 'kasir2', '$2y$10$n6OD7FiKowarnM2I2rn0SeY3YT8mYDfPFstDiqREyhur64pbP4aC.', 2, 'kasir');
 
 --
 -- Indexes for dumped tables
@@ -223,13 +228,13 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `tb_detail_transaksi`
 --
 ALTER TABLE `tb_detail_transaksi`
-  MODIFY `id_detail_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_detail_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_member`
 --
 ALTER TABLE `tb_member`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_outlet`
@@ -241,19 +246,19 @@ ALTER TABLE `tb_outlet`
 -- AUTO_INCREMENT untuk tabel `tb_paket`
 --
 ALTER TABLE `tb_paket`
-  MODIFY `id_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
